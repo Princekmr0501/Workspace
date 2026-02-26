@@ -32,6 +32,7 @@ app.get("/test-db", async (req, res) => {
   res.json(users)
 })
 
+
 app.get("/create-user", async (req, res) => {
   try {
     const newUser = await prisma.user.create({
@@ -53,6 +54,7 @@ app.get("/create-user", async (req, res) => {
   }
 })
 
+
 app.get("/fetch-user", async (req, res) => {
   try {
     const users = await prisma.user.findMany()
@@ -67,6 +69,8 @@ app.get("/fetch-user", async (req, res) => {
     })
   }
 })
+import Authrouter from './routes/auth.route.ts'
+app.use("/auth", Authrouter)
 
 const port = 5000
 app.listen(port,()=>{
