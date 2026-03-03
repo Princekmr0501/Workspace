@@ -16,7 +16,7 @@ export  default function UsersPage() {
       try {
         const res = await fetch("http://localhost:5000/fetch-user")
         const data = await res.json()
-        setUsers(data.users)
+       setUsers(data.users || [])
       } catch (error) {
         console.error("Error fetching users:", error)
       } finally {

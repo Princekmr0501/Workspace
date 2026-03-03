@@ -33,5 +33,12 @@ export  default function Home() {
 
     </div>
   )
+
+  
 }
+const getUsers = async () => {
+  const response = await fetch("http://localhost:5000/register-login");
+  const data = await response.json();
+  console.log(data);
+};
 
