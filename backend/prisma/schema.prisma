@@ -6,18 +6,51 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+ 
 }
 
 datasource db {
   provider = "postgresql"
-  
+   
 }
 
 model User {
   id        String   @id @default(uuid())
+  name      String   // ADD THIS
   email     String   @unique
-  password  String
+  password  String   @db.VarChar(100)
   createdAt DateTime @default(now())
+
+    memberships Membership[]
 }
 
+model Organization {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  plan      Plan     @default(Free)
+  createdAt DateTime @default(now())
+
+  memberships Membership[]
+}
+
+model Membership {
+  id             String   @id @default(uuid())
+  userId         String
+  organizationId String
+  role           Role
+
+  user           User         @relation(fields: [userId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  @@unique([userId, organizationId])
+}
+
+enum Role {
+  Admin
+  Member
+}
+
+enum Plan {
+  Free
+  Pro
+}

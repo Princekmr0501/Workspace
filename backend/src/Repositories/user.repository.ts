@@ -17,7 +17,7 @@ export  class Userrepository {
     })
   }
 
-  async findById(id:number){
+  async findById(id:string){
     return prisma.user.findUnique({
     where:{id}
     })

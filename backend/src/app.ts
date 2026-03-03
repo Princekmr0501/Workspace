@@ -9,7 +9,7 @@ import { healthRouter } from './routes/health.route.ts'
 app.use(healthRouter)
 
 
-import { PrismaClient } from "./generated/prisma"
+import { PrismaClient } from "@prisma/client"
 import { Pool } from "@neondatabase/serverless"
 import { PrismaNeon } from "@prisma/adapter-neon"
  //Create Neon pool using .env
@@ -37,6 +37,7 @@ app.get("/create-user", async (req, res) => {
   try {
     const newUser = await prisma.user.create({
       data: {
+        name:"Test-user",
         email: "testuser@example.com",
         password: "fakepassword123",
       },
@@ -69,8 +70,13 @@ app.get("/fetch-user", async (req, res) => {
     })
   }
 })
+
+
 import Authrouter from './routes/auth.route.ts'
 app.use("/auth", Authrouter)
+
+import organizationRoutes from "./routes/organization.routes.ts"
+app.use("/api", organizationRoutes)
 
 const port = 5000
 app.listen(port,()=>{
