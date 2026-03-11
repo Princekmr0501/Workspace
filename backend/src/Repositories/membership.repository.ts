@@ -13,4 +13,15 @@ export class MembershipRepository {
     })
   }
 
+  static async findMembership(userId: string, orgId: string) {
+    return prisma.membership.findUnique({
+      where: {
+        userId_organizationId: {
+          userId: userId,
+          organizationId: orgId
+        }
+      }
+    })
+  }
+
 }

@@ -78,6 +78,13 @@ app.use("/auth", Authrouter)
 import organizationRoutes from "./routes/organization.routes.ts"
 app.use("/api", organizationRoutes)
 
+import projectRoutes from "./routes/project.route.ts"
+app.use("/project",projectRoutes)
+
+
+import TaskRouter from "./routes/tasks.route.ts"
+app.use("/tasks", TaskRouter)
+
 const port = 5000
 app.listen(port,()=>{
     console.log('working on the server')

@@ -2,15 +2,16 @@
 
 import { Request, Response } from "express"
 import { OrganizationService } from "../services/organization.services"
+import { AuthenticatedRequest } from "../types/express"
 
 
 export class OrganizationController {
 
   static async create(req: Request, res: Response) {
-
+const authReq = req as AuthenticatedRequest
     try {
-      const userId = req.user?.userId   // from auth middleware
-      const name = req.body.name
+      const userId = authReq.user?.userId   // from auth middleware
+      const name = authReq.body.name
 
       if (!userId) {
         return res.status(401).json({ message: "Unauthorized" })

@@ -1,4 +1,5 @@
 import "express"
+import { Request } from "express"
 
 declare global {
   namespace Express {
@@ -9,3 +10,6 @@ declare global {
     }
   }
 }
+
+type AuthenticatedRequest = Request & {user:any}
+export {AuthenticatedRequest}
