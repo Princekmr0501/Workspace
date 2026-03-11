@@ -5,6 +5,9 @@ import { MembershipRepository } from "../Repositories/membership.repository"
 import { ConflictError } from "../errors/conflict.error"
 import { BadRequestError } from "../errors/bad-request.error.ts"
 
+// services should only deal with technical implementation
+// like db calls, external api calls, etc
+// no business rules
 export class OrganizationService {
 
   static async createOrganization(userId: string, name: string) {
@@ -24,13 +27,6 @@ export class OrganizationService {
     const organization = await OrganizationRepository.create({
       name,
       plan: "Free"
-    })
-
-    // Create Admin membership
-    await MembershipRepository.create({
-      userId,
-      organizationId: organization.id,
-      role: "Admin"
     })
 
     return organization

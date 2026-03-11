@@ -12,7 +12,7 @@ export class ProjectController {
 
       const project = await ProjectService.createProject(
         userId,
-        orgId,
+        orgId as string,
         name
       )
 
@@ -32,7 +32,7 @@ export class ProjectController {
 
       const projects = await ProjectService.listProjects(
         userId,
-        orgId,
+        orgId as string,
         Number(page),
         Number(limit)
       )
@@ -53,8 +53,8 @@ export class ProjectController {
 
       const project = await ProjectService.updateProject(
         userId,
-        orgId,
-        projectId,
+        orgId as string,
+        projectId as string,
         name
       )
 
@@ -73,8 +73,8 @@ export class ProjectController {
 
       await ProjectService.archiveProject(
         userId,
-        orgId,
-        projectId
+        orgId as string,
+        projectId as string
       )
 
       return res.json({

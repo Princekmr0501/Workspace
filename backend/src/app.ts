@@ -85,9 +85,10 @@ app.use("/project",projectRoutes)
 import TaskRouter from "./routes/tasks.route.ts"
 app.use("/tasks", TaskRouter)
 
-const port = 5000
-app.listen(port,()=>{
+const port = 5020
+app.listen(port,(args)=>{
     console.log('working on the server')
+    console.log(args)
 })
 
 
