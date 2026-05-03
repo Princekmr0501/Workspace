@@ -17,7 +17,9 @@ export const authMiddleware = (
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    ) as { userId: string }
+    ) as { userId: string 
+           role :string 
+    }
 
     req.user = decoded
     next()

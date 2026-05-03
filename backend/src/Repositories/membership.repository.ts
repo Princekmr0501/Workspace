@@ -1,12 +1,13 @@
 // repositories/membership.repository.ts
 import {prisma} from "../config/prisma.ts"
+import { ROLE } from "../constants/role.ts"
 
 export class MembershipRepository {
 
   static async create(data: {
     userId: string
     organizationId: string
-    role: "Admin" | "Member"
+    role: typeof ROLE[keyof typeof ROLE]
   }) {
     return prisma.membership.create({
       data
@@ -23,5 +24,4 @@ export class MembershipRepository {
       }
     })
   }
-
 }

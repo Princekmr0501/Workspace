@@ -6,10 +6,20 @@ declare global {
     interface Request {
       user?: {
         userId: string
+        role:string
       }
     }
   }
 }
 
-type AuthenticatedRequest = Request & {user:any}
-export {AuthenticatedRequest}
+type User = {
+  userId: string;
+  role:string;
+}
+
+type AuthenticatedRequest = Request & {user: User}
+
+export {
+  AuthenticatedRequest,
+  User
+}

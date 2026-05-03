@@ -83,3 +83,21 @@ enum TaskStatus {
   InProgress
   Done
 }
+
+model plan_gating {
+  id    String @id @default(uuid())
+  name  String
+  plan  String @default("FREE")
+}
+
+model Attachment {
+  id              String   @id @default(uuid())
+  taskId          String
+  organizationId  String
+  uploadedByUserId String
+  s3Key           String
+  filename        String
+  size            Int
+  mimeType        String
+  createdAt       DateTime @default(now())
+}

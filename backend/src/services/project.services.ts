@@ -1,7 +1,9 @@
-import { ProjectRepository } from "../Repositories/project.repository"
+
 import { MembershipRepository } from "../Repositories/membership.repository"
 import { ForbiddenError } from "../errors/forbidden.error.ts"
 import { NotFoundError } from "../errors/notfound.error.ts"
+import { ProjectRepository } from "../Repositories/project.repository.ts"
+import { ROLE } from "../constants/role.ts"
 
 export class ProjectService {
 
@@ -18,7 +20,7 @@ export class ProjectService {
       throw new NotFoundError("Membership not found")
     }
 
-    if (membership.role !== "ADMIN") {
+    if (membership.role !== ROLE.ADMIN) {
       throw new ForbiddenError("Only admin can create projects")
     }
 
@@ -52,7 +54,7 @@ export class ProjectService {
     const membership =
       await MembershipRepository.findMembership(userId, orgId)
 
-    if (!membership || membership.role !== "ADMIN") {
+    if (!membership || membership.role !== ROLE.ADMIN) {
       throw new ForbiddenError("Only admin can update project")
     }
 
@@ -68,12 +70,11 @@ export class ProjectService {
     const membership =
       await MembershipRepository.findMembership(userId, orgId)
 
-    if (!membership || membership.role !== "ADMIN") {
+    if (!membership || membership.role !== ROLE.ADMIN) {
       throw new ForbiddenError("Only admin can archive project")
     }
 
     await ProjectRepository.archive(projectId)
 
   }
-
 }

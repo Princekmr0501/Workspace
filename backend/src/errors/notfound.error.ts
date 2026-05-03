@@ -7,3 +7,11 @@ export class NotFoundError extends BaseError {
   }
 
 }
+
+export class UnauthorizedError extends BaseError {
+
+  constructor(message = "Unauthorized") {
+    super(message, 401)
+  }
+
+}

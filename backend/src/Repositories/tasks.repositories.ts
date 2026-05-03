@@ -17,7 +17,7 @@ export class TaskRepository {
     static async updateTask(data :{userId:string,projectName:string}){
         return prisma.task.updateMany({
         where :{
-        createUserId :data.userId 
+        createdBy :data.userId 
         },
         data:{
             projectId:data.projectName
