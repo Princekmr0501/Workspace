@@ -29,6 +29,7 @@ export const authMiddleware = (
 
     req.user = {
       userId: decoded.userId
+      
     }
 
     next()

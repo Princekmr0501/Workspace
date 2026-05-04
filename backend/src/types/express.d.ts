@@ -6,7 +6,7 @@ declare global {
     interface Request {
       user?: {
         userId: string
-        role:string
+        role?:string
       }
     }
   }
@@ -14,7 +14,7 @@ declare global {
 
 type User = {
   userId: string;
-  role:string;
+  role?:string;
 }
 
 type AuthenticatedRequest = Request & {user: User}
