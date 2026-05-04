@@ -1,11 +1,13 @@
-import {s3 } from "../config/prisma";
-import {PutObjectCommand ,GetObjectCommand} from "aws.sdk/client-s3"
+import {s3 } from "../config/s3";
+//import {PutObjectCommand ,GetObjectCommand} from "@aws.sdk/client-s3"
+import { S3Client, PutObjectCommand,GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
  import PlanService from "./plan.services.ts"
 import { prisma } from "../config/prisma.ts"
  import {NotFoundError} from "../errors/notfound.error.ts"
+ const BUCKET = process.env.AWS_BUCKET!;
 export class attatchementservice {
-    const BUCKET = process.env.AWS_BUCKET!;
+    
     static async presignUpload(
         userId: string,
         orgId: string,
@@ -18,7 +20,7 @@ export class attatchementservice {
         const key = 'orgs/${orgId}/tasks/{taskId}/${Date.now()}-${file.filename}';
         const command = new PutObjectCommand({
             Bucket: BUCKET,
-            key: key,
+            Key: key,
             ContentType: file.mimeType
         });
         const url = await getSignedUrl(s3, command, { expiresIn: 60 });
@@ -34,27 +36,27 @@ static async confirmUpload(
     orgId  : string ,
     taskId : string ,
     data :{
-      key:String;
-      filename :String;
+      key:string;
+      filename :string;
       size :number;
-      mimeType:String;
+      mimeType:string;
     }
 ){
     return prisma.attachment.create({
         data:{
             taskId,
-            OrganizationId :orgId ,
-            UploadedByUserId:userId ,
+            organizationId :orgId ,
+            uploadedByUserId:userId ,
             s3Key:data.key,
             filename :data.filename,
             size:data.size,
-            mimetype:data.mimeType,
+            mimeType: data.mimeType,
 
         },
     });
 }
 //list attatchements 
-static async listattatchement(taskId:number){
+static async listattatchement(taskId:string){
     return prisma.attachment.findMany({
         where :{taskId },
     });
